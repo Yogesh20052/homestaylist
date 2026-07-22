@@ -222,3 +222,73 @@ shareBtn.addEventListener("click", async () => {
     );
 
 });
+const selectBtn = document.getElementById("selectBtn");
+const shareSelectedBtn = document.getElementById("shareSelectedBtn");
+
+const boxes = document.querySelectorAll(".selectBox");
+
+let selecting = false;
+
+selectBtn.onclick = () => {
+
+    selecting = !selecting;
+
+    boxes.forEach(box => {
+
+        box.style.display = selecting ? "block" : "none";
+
+        box.checked = false;
+
+        box.parentElement.classList.remove("selected");
+
+    });
+
+    shareSelectedBtn.style.display = selecting ? "inline-block" : "none";
+
+};
+
+boxes.forEach(box=>{
+
+    box.addEventListener("change",()=>{
+
+        if(box.checked){
+
+            box.parentElement.classList.add("selected");
+
+        }else{
+
+            box.parentElement.classList.remove("selected");
+
+        }
+
+    });
+
+});
+
+shareSelectedBtn.onclick=()=>{
+
+    const selected=[];
+
+    boxes.forEach(box=>{
+
+        if(box.checked){
+
+            selected.push(box.nextElementSibling.src);
+
+        }
+
+    });
+
+    if(selected.length===0){
+
+        alert("Select at least one photo.");
+
+        return;
+
+    }
+
+    console.log(selected);
+
+    alert(selected.length+" photo(s) selected.");
+
+};
